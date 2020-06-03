@@ -69,7 +69,7 @@ def op():
 
 def get_top_news(which_year,num):
     which_year = pd.to_datetime(which_year).strftime('%Y-%m-%d')
-    with open(f'./top_news/{which_year}_{num}.json')as f:
+    with open(f'./UIData/news/{which_year}_{num}.json')as f:
         news = json.load(f)
     return news
 
