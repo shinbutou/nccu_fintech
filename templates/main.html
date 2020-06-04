@@ -59,6 +59,24 @@
             
             <!--News Display Section-->
             <div class="rightpane">
+                News Recommendations<br>
+                <div class="news_panel" name="news_panel">
+                    {% for news in top_news_list_1 %}
+                        <br>==============================================
+                        <br><a href={{ news['link']}}>{{ news['title'] }}<a>
+                    {% endfor %}
+                </div>
+                <div class="news_panel" name="news_panel">
+                    {% for news in top_news_list_2 %}
+                        <br>==============================================
+                        <br><a href={{ news['link']}}>{{ news['title'] }}<a>
+                    {% endfor %}
+                </div>
+                <div class="news_panel" name="news_panel">
+                    {% for news in top_news_list_3 %}
+                        <br>==============================================
+                        <br><a href={{ news['link']}}>{{ news['title'] }}<a>
+                    {% endfor %}    
             </div>
 
             <!--General Recommendation Display Section-->
