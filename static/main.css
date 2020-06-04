@@ -115,6 +115,7 @@ body{
     float: left;
     border: 1px solid;
     margin: 1px;
+    padding: 1px;
 }
 
 .news_panel::-webkit-scrollbar{
