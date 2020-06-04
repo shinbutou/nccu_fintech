@@ -17,11 +17,11 @@ def login():
         global user
         user = request.values['usr']
         pwd = request.values['pwd']
-        with open(f'Info.json', 'r') as json_file:
+        with open(f'./schema/Info.json', 'r') as json_file:
             data = json.load(json_file)
         if user not in data.keys():
             data.update({user:{}})
-        with open(f'Info.json', 'w') as json_file:
+        with open(f'./schema/Info.json', 'w') as json_file:
             json.dump(data, json_file)
             json_file.close()
             
@@ -44,7 +44,7 @@ def op():
         year = request.values['datepicker']
         portfolio = request.values['portfolio']
         keyword = request.values['ikeyword']
-        with open(f'Info.json', 'r') as json_file:
+        with open(f'./schema/Info.json', 'r') as json_file:
            data = json.load(json_file)
         int = 0
         try:
@@ -55,7 +55,7 @@ def op():
         data[user].update({int : {"date" : year,
                                     "pf" : portfolio,
                                     "kw" : keyword }})
-        with open(f'Info.json', 'w') as json_file:
+        with open(f'./schema/Info.json', 'w') as json_file:
            json.dump(data, json_file)
         
         
