@@ -62,8 +62,8 @@
                 News Recommendations<br>
                 <div class="news_panel" name="news_panel">
                     {% for news in top_news_list_1 %}
-                    <a href={{ news['link']}}>
-                        <div style="border: 1px solid; margin: 3px; padding: 3px; background-color: gainsboro; cursor: pointer;">
+                    <a style="text-decoration: none" href={{ news['link']}}>
+                        <div style="font-size: 10pt; text-align: justify; color:#222222; text-decoration: none; margin: 1px; padding: 9px; background-color: gainsboro; cursor: pointer;">
                             {{ news['title']}}
                         </div>
                     </a>
@@ -71,8 +71,8 @@
                 </div>
                 <div class="news_panel" name="news_panel">
                     {% for news in top_news_list_2 %}
-                        <a href={{ news['link']}}>
-                            <div style="border: 1px solid; margin: 3px; padding: 3px; background-color: gainsboro; cursor: pointer;">
+                        <a style="text-decoration: none" href={{ news['link']}}>
+                            <div style="font-size: 10pt; text-align: justify; color:#222222; text-decoration: none; margin: 1px; padding: 9px; background-color: gainsboro; cursor: pointer;">
                                 {{ news['title']}}
                             </div>
                         </a>
@@ -80,13 +80,13 @@
                 </div>
                 <div class="news_panel" name="news_panel">
                     {% for news in top_news_list_3 %}
-                        <a href={{ news['link']}}>
-                            <div style="border: 1px solid; margin: 3px; padding: 3px; background-color: gainsboro; cursor: pointer;">
+                        <a style="text-decoration: none" href={{ news['link']}}>
+                            <div style="font-size: 10pt; text-align: justify; color:#222222; text-decoration: none; margin: 1px; padding: 9px;background-color: gainsboro; cursor: pointer;">
                                 {{ news['title']}}
                             </div>
                         </a>
-                    {% endfor %} 
-                </div>   
+                    {% endfor %}
+                </div>  
             </div>
 
             <!--General Recommendation Display Section-->
