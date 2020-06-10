@@ -11,7 +11,7 @@
         <script>
             $(function(){
                 $("#datepicker").datepicker();
-                $("#datepicker").datepicker("setDate", new Date());
+                <!--$("#datepicker").datepicker("setDate", new Date());-->
             });
 
             $(function(){
@@ -28,13 +28,13 @@
             <div class="vertical-center">
             
                 <form action="main.html" method="post">
-                Date <input type="text" id="datepicker" name="datepicker"></td>
+                Date <input type="text" id="datepicker" name="datepicker" value={{date}}></td>
                 Portfolio: 
                     <select id="portfolio" name="portfolio">
-                        <option value="pph_1" selected>placeholder1</option>
-                        <option value="pph_2">placeholder2</option>
-                        <option value="pph_3">placeholder3</option>
-                        <option value="pph_4">placeholder4</option>
+                        <option value="pph_1" {{selected['pph_1']}}>placeholder1</option>
+                        <option value="pph_2" {{selected['pph_2']}}>placeholder2</option>
+                        <option value="pph_3" {{selected['pph_3']}}>placeholder3</option>
+                        <option value="pph_4" {{selected['pph_4']}}>placeholder4</option>
                     </select>
                 <div class="ikeyword">Keyword: <input type="text" id="ikeyword" name="ikeyword"><input type="submit" id="keysubmit" name="keysubmit" value="search"></div>
             </form>
@@ -45,20 +45,35 @@
         <!--Portfolio Display Section-->
         <div class="leftpane">
             Portfolio Information<br>
-            <div class="portfolio_panel" name="portfolio_panel">placholder for specific stock<br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.</div>
+            <div class="portfolio_panel" name="portfolio_panel">placholder for specific stock
+                {% for stock in portfolio %}
+                    <div style="font-size: 10pt; text-align: justify; color:#222222; text-decoration: none; margin: 1px; padding: 9px; background-color: gainsboro; cursor: pointer;">
+                        {{ stock }}
+                    </div>
+                {% endfor %}
+            </div>
         </div>
 
         <!--General Display Section-->
         <div class="middlepane">
             General Information<br>
-            <div class="general_panel" name="general_panel">placeholder for news recommendations<br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.</div>
+            <div class="general_panel" name="general_panel">placeholder for news recommendations
+                {% for news in portfolio_news %}
+                <a style="text-decoration: none" href={{ news['link']}}>
+                    <div style="font-size: 10pt; text-align: justify; color:#222222; text-decoration: none; margin: 1px; padding: 9px; background-color: gainsboro; cursor: pointer;">
+                        {{ news['title']}}
+                        
+                    </div>
+                </a>
+                {% endfor %}        
+            </div>
         </div>
         
         <!--News Display Section-->
         <div class="rightpane">
             News Recommendations<br>
             <div class="news_panel" name="news_panel">
-                keyword 1<br>
+                {{key1}}<br>
                 {% for news in top_news_list_1 %}
                 <a style="text-decoration: none" href={{ news['link']}}>
                     <div style="font-size: 10pt; text-align: justify; color:#222222; text-decoration: none; margin: 1px; padding: 9px; background-color: gainsboro; cursor: pointer;">
@@ -68,7 +83,7 @@
                 {% endfor %}
             </div>
             <div class="news_panel" name="news_panel">
-                keyword 2<br>
+                {{key2}}<br>
                 {% for news in top_news_list_2 %}
                     <a style="text-decoration: none" href={{ news['link']}}>
                         <div style="font-size: 10pt; text-align: justify; color:#222222; text-decoration: none; margin: 1px; padding: 9px; background-color: gainsboro; cursor: pointer;">
@@ -78,7 +93,7 @@
                 {% endfor %}
             </div>
             <div class="news_panel" name="news_panel">
-                keyword 3<br>
+                {{key3}}<br>
                 {% for news in top_news_list_3 %}
                     <a style="text-decoration: none" href={{ news['link']}}>
                         <div style="font-size: 10pt; text-align: justify; color:#222222; text-decoration: none; margin: 1px; padding: 9px;background-color: gainsboro; cursor: pointer;">
