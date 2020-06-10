@@ -18,21 +18,24 @@ def login():
         global user
         user = request.values['usr']
         pwd = request.values['pwd']
-        with open(f'./Schema/Info.json', 'r') as json_file:
+        with open(f'./schema/Info.json', 'r') as json_file:
             data = json.load(json_file)
         if user not in data.keys():
             data.update({user:{}})
-        with open(f'./Schema/Info.json', 'w') as json_file:
+        with open(f'./schema/Info.json', 'w') as json_file:
             json.dump(data, json_file)
             json_file.close()
             
         default_year = '05/06/2020'
+        selected = {'pph_1':'selected','pph_2':'','pph_3':'','pph_4':''}
         default_method = 'pph_1'
         key1,top_news_1 = get_top_news(default_year, 1)
         key2,top_news_2 = get_top_news(default_year, 2)
         key3,top_news_3 = get_top_news(default_year, 3)
         portfolio_list,portfolio_news = get_portfolio_news(default_year,default_method)
         return render_template("main.html",
+                               date = default_year,
+                               selected = selected,
                                portfolio = portfolio_list,
                                portfolio_news = portfolio_news,
                                key1 = key1,
@@ -50,7 +53,7 @@ def op():
         year = request.values['datepicker']
         portfolio = request.values['portfolio']
         keyword = request.values['ikeyword']
-        with open(f'./Schema/Info.json', 'r') as json_file:
+        with open(f'./schema/Info.json', 'r') as json_file:
            data = json.load(json_file)
         int = 0
         try:
@@ -61,15 +64,19 @@ def op():
         data[user].update({int : {"date" : year,
                                     "pf" : portfolio,
                                     "kw" : keyword }})
-        with open(f'./Schema/Info.json', 'w') as json_file:
+        with open(f'./schema/Info.json', 'w') as json_file:
            json.dump(data, json_file)
-        
+        selected = {'pph_1':'','pph_2':'','pph_3':'','pph_4':''}
+        selected[portfolio]='selected'
+        date = pd.to_datetime(year).strftime('%m/%d/%Y')
         key1,top_news_1 = get_top_news(year, 1)
         key2,top_news_2 = get_top_news(year, 2)
         key3,top_news_3 = get_top_news(year, 3)
         portfolio_list,portfolio_news = get_portfolio_news(year,portfolio)
 
         return render_template("main.html",
+                               date = date,
+                               selected = selected,
                                portfolio = portfolio_list,
                                portfolio_news = portfolio_news,
                                key1 = key1,
@@ -98,11 +105,11 @@ def get_portfolio_news(which_day,method):
             news = file[1:]
         else :
             portfolio = file[0]
-            news = [{'title':'No news recently','link':'','source':'','pubdate':''}]
+            news = [{'title':'No news recently'}]
         return portfolio,news
     except:
         portfolio = ['no stocks choosed by this method on this date']
-        news = [{'title':'no stocks choosed by this method on this date','link':'','source':'','pubdate':''}]
+        news = [{'title':'no stocks choosed by this method on this date'}]
         return portfolio,news
 @app.route("/log/create-entry", methods=["POST"])
 def create_entry():
