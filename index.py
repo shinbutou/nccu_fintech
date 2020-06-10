@@ -26,7 +26,7 @@ def login():
             json.dump(data, json_file)
             json_file.close()
             
-        default_year = '05/01/2020'
+        default_year = '05/06/2020'
         default_method = 'pph_1'
         key1,top_news_1 = get_top_news(default_year, 1)
         key2,top_news_2 = get_top_news(default_year, 2)
