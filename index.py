@@ -3,7 +3,11 @@ import json
 import pandas as pd
 
 app = Flask(__name__)
-
+method_list = {'pph_1':'news_PortfolioList_AbovePositive5',
+               'pph_2':'news_PortfolioList_BelowNegative5',
+               'pph_3':'news_PortfolioList_WeekAbovePositive10',
+               'pph_4':'news_PortfolioList_WeekBelowNegative10'
+               }
 @app.route("/")
 def main():
     return render_template('login.html')
@@ -23,10 +27,14 @@ def login():
             json_file.close()
             
         default_year = '05/01/2020'
+        default_method = 'pph_1'
         key1,top_news_1 = get_top_news(default_year, 1)
         key2,top_news_2 = get_top_news(default_year, 2)
         key3,top_news_3 = get_top_news(default_year, 3)
+        portfolio_list,portfolio_news = get_portfolio_news(default_year,default_method)
         return render_template("main.html",
+                               portfolio = portfolio_list,
+                               portfolio_news = portfolio_news,
                                key1 = key1,
                                top_news_list_1 = top_news_1,
                                key2 = key2,
@@ -56,22 +64,46 @@ def op():
         with open(f'./Schema/Info.json', 'w') as json_file:
            json.dump(data, json_file)
         
-        
-        top_news_1 = get_top_news(year, 1);top_news_2 = get_top_news(year, 2);top_news_3 = get_top_news(year, 3)
+        key1,top_news_1 = get_top_news(year, 1)
+        key2,top_news_2 = get_top_news(year, 2)
+        key3,top_news_3 = get_top_news(year, 3)
+        portfolio_list,portfolio_news = get_portfolio_news(year,portfolio)
 
         return render_template("main.html",
+                               portfolio = portfolio_list,
+                               portfolio_news = portfolio_news,
+                               key1 = key1,
                                top_news_list_1 = top_news_1,
+                               key2 = key2,
                                top_news_list_2 = top_news_2,
-                               top_news_list_3 = top_news_3
+                               key3 = key3,
+                               top_news_list_3 = top_news_3,
                                )
 
-def get_top_news(which_year,num):
-    which_year = pd.to_datetime(which_year).strftime('%Y-%m-%d')
-    with open(f'./UIData/news/{which_year}_{num}.json')as f:
+def get_top_news(which_day,num):
+    which_day = pd.to_datetime(which_day).strftime('%Y%m%d')
+    with open(f'./UIData/news/{which_day}_{num}.json')as f:
         file = json.load(f)
         key = file[0]
         news = file[1:]
     return key,news
+def get_portfolio_news(which_day,method):
+    which_day = pd.to_datetime(which_day).strftime('%Y%m%d')
+    method = method_list[method]
+    try:
+        with open(f'./UIData/news/{method}_{which_day}.json')as f:
+            file = json.load(f)
+        if len(file)>1:
+            portfolio = file[0]
+            news = file[1:]
+        else :
+            portfolio = file[0]
+            news = [{'title':'No news recently','link':'','source':'','pubdate':''}]
+        return portfolio,news
+    except:
+        portfolio = ['no stocks choosed by this method on this date']
+        news = [{'title':'no stocks choosed by this method on this date','link':'','source':'','pubdate':''}]
+        return portfolio,news
 @app.route("/log/create-entry", methods=["POST"])
 def create_entry():
     req = request.get_json()
