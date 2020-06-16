@@ -75,7 +75,7 @@
             <div class="news_panel" name="news_panel">
                 {{key1}}<br>
                 {% for news in top_news_list_1 %}
-                <a style="text-decoration: none" href={{ news['link']}}>
+                <a style="text-decoration: none" href={{ news['link']}} onclick="submit_message({{ news }}, '1');" target="_blank">
                     <div style="font-size: 10pt; text-align: justify; color:#222222; text-decoration: none; margin: 1px; padding: 9px; background-color: gainsboro; cursor: pointer;">
                         {{ news['title']}}
                     </div>
@@ -85,7 +85,7 @@
             <div class="news_panel" name="news_panel">
                 {{key2}}<br>
                 {% for news in top_news_list_2 %}
-                    <a style="text-decoration: none" href={{ news['link']}}>
+                    <a style="text-decoration: none" href={{ news['link']}} onclick="submit_message({{ news }}, '2');" target="_blank">
                         <div style="font-size: 10pt; text-align: justify; color:#222222; text-decoration: none; margin: 1px; padding: 9px; background-color: gainsboro; cursor: pointer;">
                             {{ news['title']}}
                         </div>
@@ -95,7 +95,7 @@
             <div class="news_panel" name="news_panel">
                 {{key3}}<br>
                 {% for news in top_news_list_3 %}
-                    <a style="text-decoration: none" href={{ news['link']}}>
+                    <a style="text-decoration: none" href={{ news['link']}} onclick="submit_message({{ news }}, '3');" target="_blank">
                         <div style="font-size: 10pt; text-align: justify; color:#222222; text-decoration: none; margin: 1px; padding: 9px;background-color: gainsboro; cursor: pointer;">
                             {{ news['title']}}
                         </div>
@@ -144,3 +144,37 @@
         </div>
     </body>
 </html>
+
+{% block script %}
+<script>
+function submit_message(obj, tab) {
+        var entry = {
+            title: obj['title'],
+            url: obj['link'],
+            tab: tab
+        };
+
+        fetch(`${window.origin}/log/create-entry`, {
+            method: "POST",
+            credentials: "include",
+            body: JSON.stringify(entry),
+            cache: "no-cache",
+            headers: new Headers({
+              "content-type": "application/json"
+            })
+          })
+          .then(function(response) {
+            if (response.status !== 200) {
+              console.log(`Looks like there was a problem. Status code: ${response.status}`);
+              return;
+            }
+            response.json().then(function(data) {
+              console.log(data);
+            });
+          })
+          .catch(function(error) {
+            console.log("Fetch error: " + error);
+        });
+    }
+</script>
+{% endblock %}
