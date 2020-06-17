@@ -31,12 +31,12 @@
                 Date <input type="text" id="datepicker" name="datepicker" value={{date}}></td>
                 Portfolio: 
                     <select id="portfolio" name="portfolio">
-                        <option value="pph_1" {{selected['pph_1']}}>placeholder1</option>
-                        <option value="pph_2" {{selected['pph_2']}}>placeholder2</option>
-                        <option value="pph_3" {{selected['pph_3']}}>placeholder3</option>
-                        <option value="pph_4" {{selected['pph_4']}}>placeholder4</option>
+                        <option value="pph_1" {{selected['pph_1']}}>day_above_positive_5</option>
+                        <option value="pph_2" {{selected['pph_2']}}>day_below_negative_5</option>
+                        <option value="pph_3" {{selected['pph_3']}}>week_above_positive_10</option>
+                        <option value="pph_4" {{selected['pph_4']}}>week_below_negative_10</option>
                     </select>
-                <div class="ikeyword">Keyword: <input type="text" id="ikeyword" name="ikeyword"><input type="submit" id="keysubmit" name="keysubmit" value="search"></div>
+                <div class="ikeyword">Keyword: <input type="text" id="ikeyword" name="ikeyword" value={{keyword}}><input type="submit" id="keysubmit" name="keysubmit" value="search"></div>
             </form>
             
             </div>
@@ -56,7 +56,7 @@
 
         <!--General Display Section-->
         <div class="middlepane">
-            General Information<br>
+            Portfolio News<br>
             <div class="general_panel" name="general_panel">
                 {% for news in portfolio_news %}
                 <a style="text-decoration: none" href={{ news['link']}}>
@@ -71,7 +71,7 @@
         
         <!--News Display Section-->
         <div class="rightpane">
-            News Recommendations<br>
+            Top News<br>
             <div class="news_panel" name="news_panel">
                 {{key1}}<br>
                 {% for news in top_news_list_1 %}
