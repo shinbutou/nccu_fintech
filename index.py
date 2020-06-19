@@ -32,7 +32,7 @@ def login():
         key1,top_news_1 = get_top_news(default_year, 1,'')
         key2,top_news_2 = get_top_news(default_year, 2,'')
         key3,top_news_3 = get_top_news(default_year, 3,'')
-        portfolio_list,portfolio_news = get_portfolio_news(default_year,default_method)
+        portfolio_list,portfolio_news = get_portfolio_news(default_year,default_method,'')
         return render_template("main.html",
                                date = default_year,
                                selected = selected,
@@ -73,7 +73,7 @@ def op():
         key1,top_news_1 = get_top_news(year, 1,keyword)
         key2,top_news_2 = get_top_news(year, 2,keyword)
         key3,top_news_3 = get_top_news(year, 3,keyword)
-        portfolio_list,portfolio_news = get_portfolio_news(year,portfolio)
+        portfolio_list,portfolio_news = get_portfolio_news(year,portfolio,keyword)
         return render_template("main.html",
                                date = date,
                                selected = selected,
@@ -104,7 +104,7 @@ def get_top_news(which_day,num,keyword):
         news = choose
     return key,news
             
-def get_portfolio_news(which_day,method):
+def get_portfolio_news(which_day,method,keyword):
     which_day = pd.to_datetime(which_day).strftime('%Y%m%d')
     method = method_list[method]
     try:
@@ -113,9 +113,18 @@ def get_portfolio_news(which_day,method):
         if len(file)>1:
             portfolio = file[0]
             news = file[1:]
+        #當該投組 沒有新聞時
         else :
             portfolio = file[0]
             news = [{'title':'No news recently'}]
+        if keyword != '':
+            keyword = keyword.upper()
+            choose = []
+            for i in news:
+                title = i['title'].upper().split()
+                if keyword in title:
+                    choose.append(i)
+            news = choose
         return portfolio,news
     except:
         portfolio = ['no stocks choosed by this method on this date']
