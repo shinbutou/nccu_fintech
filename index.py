@@ -6,7 +6,8 @@ app = Flask(__name__)
 method_list = {'pph_1':'news_PortfolioList_AbovePositive5',
                'pph_2':'news_PortfolioList_BelowNegative5',
                'pph_3':'news_PortfolioList_WeekAbovePositive10',
-               'pph_4':'news_PortfolioList_WeekBelowNegative10'
+               'pph_4':'news_PortfolioList_WeekBelowNegative10',
+               'pph_5':'news_PortfolioList_MonthAbovePositive20'
                }
 @app.route("/")
 def main():
@@ -27,7 +28,7 @@ def login():
             json_file.close()
             
         default_year = '05/06/2020'
-        selected = {'pph_1':'selected','pph_2':'','pph_3':'','pph_4':''}
+        selected = {'pph_1':'selected','pph_2':'','pph_3':'','pph_4':'','pph_5':''}
         default_method = 'pph_1'
         key1,top_news_1 = get_top_news(default_year, 1,'')
         key2,top_news_2 = get_top_news(default_year, 2,'')
@@ -116,7 +117,7 @@ def get_portfolio_news(which_day,method,keyword):
         #當該投組 沒有新聞時
         else :
             portfolio = file[0]
-            news = [{'title':'No news recently'}]
+            news = ''
         if keyword != '':
             keyword = keyword.upper()
             choose = []
@@ -127,8 +128,8 @@ def get_portfolio_news(which_day,method,keyword):
             news = choose
         return portfolio,news
     except:
-        portfolio = ['no stocks choosed by this method on this date']
-        news = [{'title':'no stocks choosed by this method on this date'}]
+        portfolio = ''
+        news = ''
         return portfolio,news
     
 @app.route("/log/create-entry", methods=["POST"])
