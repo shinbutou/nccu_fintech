@@ -35,6 +35,7 @@
                         <option value="pph_2" {{selected['pph_2']}}>day_below_negative_5</option>
                         <option value="pph_3" {{selected['pph_3']}}>week_above_positive_10</option>
                         <option value="pph_4" {{selected['pph_4']}}>week_below_negative_10</option>
+                        <option value="pph_5" {{selected['pph_5']}}>month_above_positive_20</option>
                     </select>
                 <div class="ikeyword">Keyword: <input type="text" id="ikeyword" name="ikeyword" value={{keyword}}><input type="submit" id="keysubmit" name="keysubmit" value="search"></div>
             </form>
@@ -47,7 +48,7 @@
             Portfolio Information<br>
             <div class="portfolio_panel" name="portfolio_panel">
                 {% for stock in portfolio %}
-                    <div style="font-size: 10pt; text-align: justify; color:#222222; text-decoration: none; margin: 1px; padding: 9px; background-color: gainsboro; cursor: pointer;">
+                    <div style="font-size: 10pt; text-align: justify; color:#222222; text-decoration: none; margin: 1px; padding: 9px; background-color: #E0E0E0 ; cursor: pointer;">
                         {{ stock }}
                     </div>
                 {% endfor %}
@@ -60,11 +61,14 @@
             <div class="general_panel" name="general_panel">
                 {% for news in portfolio_news %}
                 <a style="text-decoration: none" href={{ news['link']}}>
-                    <div style="font-size: 10pt; text-align: justify; color:#222222; text-decoration: none; margin: 1px; padding: 9px; background-color: gainsboro; cursor: pointer;">
+                    <div style="font-size: 10pt; text-align: justify; color:#222222; text-decoration: none; margin: 1px; padding: 9px; background-color: #E0E0E0 ; cursor: pointer;">
                         {{ news['title']}}
                         
                     </div>
                 </a>
+                <div style="font-size: 8pt; text-align: justify; color:#222222">
+                 &ensp;Pubdate &ensp;:&ensp;{{ news['pubdate']}}  <br/> &ensp; Source&ensp;:&ensp;{{ news['source']}}
+                </div>
                 {% endfor %}        
             </div>
         </div>
@@ -76,30 +80,39 @@
                 {{key1}}<br>
                 {% for news in top_news_list_1 %}
                 <a style="text-decoration: none" href={{ news['link']}} onclick="submit_message({{ news }}, '1');" target="_blank">
-                    <div style="font-size: 10pt; text-align: justify; color:#222222; text-decoration: none; margin: 1px; padding: 9px; background-color: gainsboro; cursor: pointer;">
+                    <div style="font-size: 10pt; text-align: justify; color:#222222; text-decoration: none; margin: 1px; padding: 9px; background-color: #E0E0E0 ; cursor: pointer;">
                         {{ news['title']}}
                     </div>
                 </a>
+                <div style="font-size: 8pt; text-align: justify; color:#222222">
+                 &ensp;Pubdate &ensp;:&ensp;{{ news['pubdate']}}  <br/> &ensp; Source&ensp;:&ensp;{{ news['source']}}
+                </div>
                 {% endfor %}
             </div>
             <div class="news_panel" name="news_panel">
                 {{key2}}<br>
                 {% for news in top_news_list_2 %}
                     <a style="text-decoration: none" href={{ news['link']}} onclick="submit_message({{ news }}, '2');" target="_blank">
-                        <div style="font-size: 10pt; text-align: justify; color:#222222; text-decoration: none; margin: 1px; padding: 9px; background-color: gainsboro; cursor: pointer;">
+                        <div style="font-size: 10pt; text-align: justify; color:#222222; text-decoration: none; margin: 1px; padding: 9px; background-color: #E0E0E0 ; cursor: pointer;">
                             {{ news['title']}}
                         </div>
                     </a>
+                <div style="font-size: 8pt; text-align: justify; color:#222222">
+                 &ensp;Pubdate &ensp;:&ensp;{{ news['pubdate']}}  <br/> &ensp; Source&ensp;:&ensp;{{ news['source']}}
+                </div>
                 {% endfor %}
             </div>
             <div class="news_panel" name="news_panel">
                 {{key3}}<br>
                 {% for news in top_news_list_3 %}
                     <a style="text-decoration: none" href={{ news['link']}} onclick="submit_message({{ news }}, '3');" target="_blank">
-                        <div style="font-size: 10pt; text-align: justify; color:#222222; text-decoration: none; margin: 1px; padding: 9px;background-color: gainsboro; cursor: pointer;">
+                        <div style="font-size: 10pt; text-align: justify; color:#222222; text-decoration: none; margin: 1px; padding: 9px;background-color: #E0E0E0 ; cursor: pointer;">
                             {{ news['title']}}
                         </div>
                     </a>
+                <div style="font-size: 8pt; text-align: justify; color:#222222">
+                 &ensp;Pubdate &ensp;:&ensp;{{ news['pubdate']}}  <br/> &ensp; Source&ensp;:&ensp;{{ news['source']}}
+                </div>
                 {% endfor %}
             </div> 
         </div>
