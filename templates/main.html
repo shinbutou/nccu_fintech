@@ -130,28 +130,90 @@
                 <div id="tabs-1"><div class="tabs_panel" name="tabs_panel">
                 </div></div>
                 <div id="tabs-2"><div class="tabs_panel" name="tabs_panel">
-                    <div class="twitter_panel" name="twitter_panel">placeholder for news recommendations<br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.</div>
-                    <div class="twitter_panel" name="twitter_panel">placeholder for news recommendations<br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.</div>
-                    <div class="twitter_panel" name="twitter_panel">placeholder for news recommendations<br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.</div>
-                    <div class="twitter_panel" name="twitter_panel">placeholder for news recommendations<br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.</div>
+                    <div class="twitter_panel" name="twitter_panel">
+                        {{ twitter_key_1}}<br>
+                        {% for post in twitter_top_1 %}
+                        <div style="font-size: 10pt; text-align: justify; color:#222222; text-decoration: none; margin: 1px; padding: 9px; background-color: #E0E0E0 ; cursor: pointer;">
+                            {{ post['Text']}}
+                        </div>
+                        <div style="font-size: 8pt; text-align: justify; color:#222222">
+                         &ensp;Time &ensp;:&ensp;{{ post['Time']}}  <br/> &ensp; Name&ensp;:&ensp;{{ post['Name']}}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="twitter_panel" name="twitter_panel">
+                        {{ twitter_key_2}}<br>
+                        {% for post in twitter_top_2 %}
+                        <div style="font-size: 10pt; text-align: justify; color:#222222; text-decoration: none; margin: 1px; padding: 9px; background-color: #E0E0E0 ; cursor: pointer;">
+                            {{ post['Text']}}
+                        </div>
+                        <div style="font-size: 8pt; text-align: justify; color:#222222">
+                         &ensp;Time &ensp;:&ensp;{{ post['Time']}}  <br/> &ensp; Name&ensp;:&ensp;{{ post['Name']}}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="twitter_panel" name="twitter_panel">
+                        {{ twitter_key_3}}<br>
+                        {% for post in twitter_top_3 %}
+                        <div style="font-size: 10pt; text-align: justify; color:#222222; text-decoration: none; margin: 1px; padding: 9px; background-color: #E0E0E0 ; cursor: pointer;">
+                            {{ post['Text']}}
+                        </div>
+                        <div style="font-size: 8pt; text-align: justify; color:#222222">
+                         &ensp;Time &ensp;:&ensp;{{ post['Time']}}  <br/> &ensp; Name&ensp;:&ensp;{{ post['Name']}}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="twitter_panel" name="twitter_panel">
+                        {{ twitter_key_4}}<br>
+                        {% for post in twitter_top_4 %}
+                        <div style="font-size: 10pt; text-align: justify; color:#222222; text-decoration: none; margin: 1px; padding: 9px; background-color: #E0E0E0 ; cursor: pointer;">
+                            {{ post['Text']}}
+                        </div>
+                        <div style="font-size: 8pt; text-align: justify; color:#222222">
+                         &ensp;Time &ensp;:&ensp;{{ post['Time']}}  <br/> &ensp; Name&ensp;:&ensp;{{ post['Name']}}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    
                 </div></div>
                 <div id="tabs-3"><div class="tabs_panel" name="tabs_panel">
-                    <div class="twitter_panel" name="twitter_panel">placeholder for news recommendations<br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.</div>
-                    <div class="twitter_panel" name="twitter_panel">placeholder for news recommendations<br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.</div>
-                    <div class="twitter_panel" name="twitter_panel">placeholder for news recommendations<br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.</div>
-                    <div class="twitter_panel" name="twitter_panel">placeholder for news recommendations<br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.</div>
+                    <div class="twitter_panel" name="twitter_panel">
+                        人物一<br>
+                        {% for post in twitter_pop_1 %}
+                        <div style="font-size: 10pt; text-align: justify; color:#222222; text-decoration: none; margin: 1px; padding: 9px; background-color: #E0E0E0 ; cursor: pointer;">
+                            {{ post['Text']}}
+                        </div>
+                        <div style="font-size: 8pt; text-align: justify; color:#222222">
+                         &ensp;Time &ensp;:&ensp;{{ post['Time']}}  <br/> &ensp; Name&ensp;:&ensp;{{ post['Name']}}
+                        </div>
+                        {% endfor %}
+                    </div>
                 </div></div>
                 <div id="tabs-4"><div class="tabs_panel" name="tabs_panel">
-                    <div class="twitter_panel" name="twitter_panel">placeholder for news recommendations<br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.</div>
-                    <div class="twitter_panel" name="twitter_panel">placeholder for news recommendations<br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.</div>
-                    <div class="twitter_panel" name="twitter_panel">placeholder for news recommendations<br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.</div>
-                    <div class="twitter_panel" name="twitter_panel">placeholder for news recommendations<br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.</div>
+                    <div class="twitter_panel" name="twitter_panel">
+                        人物二<br>
+                        {% for post in twitter_pop_2 %}
+                        <div style="font-size: 10pt; text-align: justify; color:#222222; text-decoration: none; margin: 1px; padding: 9px; background-color: #E0E0E0 ; cursor: pointer;">
+                            {{ post['Text']}}
+                        </div>
+                        <div style="font-size: 8pt; text-align: justify; color:#222222">
+                         &ensp;Time &ensp;:&ensp;{{ post['Time']}}  <br/> &ensp; Name&ensp;:&ensp;{{ post['Name']}}
+                        </div>
+                        {% endfor %}
+                    </div>
                 </div></div>
                 <div id="tabs-5"><div class="tabs_panel" name="tabs_panel">
-                    <div class="twitter_panel" name="twitter_panel">placeholder for news recommendations<br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.</div>
-                    <div class="twitter_panel" name="twitter_panel">placeholder for news recommendations<br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.</div>
-                    <div class="twitter_panel" name="twitter_panel">placeholder for news recommendations<br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.</div>
-                    <div class="twitter_panel" name="twitter_panel">placeholder for news recommendations<br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.<br><br>1.<br>2.<br>3.<br>4.<br>5.<br>6.<br>7.<br>8.<br>9.<br>10.</div>
+                    <div class="twitter_panel" name="twitter_panel">
+                        人物三<br>
+                        {% for post in twitter_pop_3 %}
+                        <div style="font-size: 10pt; text-align: justify; color:#222222; text-decoration: none; margin: 1px; padding: 9px; background-color: #E0E0E0 ; cursor: pointer;">
+                            {{ post['Text']}}
+                        </div>
+                        <div style="font-size: 8pt; text-align: justify; color:#222222">
+                         &ensp;Time &ensp;:&ensp;{{ post['Time']}}  <br/> &ensp; Name&ensp;:&ensp;{{ post['Name']}}
+                        </div>
+                        {% endfor %}
+                    </div>
                 </div></div>
             </div>
         </div>
