@@ -1,6 +1,7 @@
-from flask import Flask, redirect, url_for, render_template, request
+from flask import Flask, redirect, url_for, render_template, request,jsonify,make_response
 import json
 import pandas as pd
+import datetime as dt
 
 app = Flask(__name__)
 method_list = {'pph_1':'news_PortfolioList_AbovePositive5',
@@ -34,9 +35,9 @@ def login():
         key2,top_news_2 = get_top_news(default_year, 2,'')
         key3,top_news_3 = get_top_news(default_year, 3,'')
         portfolio_list,portfolio_news = get_portfolio_news(default_year,default_method,'')
-        tw_key1,top_tw_1 = get_top_twitter(default_year,1)
-        tw_key2,top_tw_2 = get_top_twitter(default_year,2)
-        tw_key3,top_tw_3 = get_top_twitter(default_year,3)
+        # tw_key1,top_tw_1 = get_top_twitter(default_year,1)
+        # tw_key2,top_tw_2 = get_top_twitter(default_year,2)
+        # tw_key3,top_tw_3 = get_top_twitter(default_year,3)
         return render_template("main.html",
                                date = default_year,
                                selected = selected,
@@ -46,9 +47,9 @@ def login():
                                key1 = key1, top_news_list_1 = top_news_1,
                                key2 = key2, top_news_list_2 = top_news_2,
                                key3 = key3, top_news_list_3 = top_news_3,
-                               twitter_key_1 = tw_key1, twitter_top_1 = top_tw_1,
-                               twitter_key_2 = tw_key2, twitter_top_2 = top_tw_2,
-                               twitter_key_3 = tw_key3, twitter_top_3 = top_tw_3
+                               # twitter_key_1 = tw_key1, twitter_top_1 = top_tw_1,
+                               # twitter_key_2 = tw_key2, twitter_top_2 = top_tw_2,
+                               # twitter_key_3 = tw_key3, twitter_top_3 = top_tw_3
                                )
     
         
@@ -78,9 +79,9 @@ def op():
         key2,top_news_2 = get_top_news(year, 2,keyword)
         key3,top_news_3 = get_top_news(year, 3,keyword)
         portfolio_list,portfolio_news = get_portfolio_news(year,portfolio,keyword)
-        tw_key1,top_tw_1 = get_top_twitter(year,1)
-        tw_key2,top_tw_2 = get_top_twitter(year,2)
-        tw_key3,top_tw_3 = get_top_twitter(year,3)
+        # tw_key1,top_tw_1 = get_top_twitter(year,1)
+        # tw_key2,top_tw_2 = get_top_twitter(year,2)
+        # tw_key3,top_tw_3 = get_top_twitter(year,3)
         return render_template("main.html",
                                date = date,
                                selected = selected,
@@ -90,9 +91,9 @@ def op():
                                key1 = key1, top_news_list_1 = top_news_1,
                                key2 = key2, top_news_list_2 = top_news_2,
                                key3 = key3, top_news_list_3 = top_news_3,
-                               twitter_key_1 = tw_key1, twitter_top_1 = top_tw_1,
-                               twitter_key_2 = tw_key2, twitter_top_2 = top_tw_2,
-                               twitter_key_3 = tw_key3, twitter_top_3 = top_tw_3
+                               # twitter_key_1 = tw_key1, twitter_top_1 = top_tw_1,
+                               # twitter_key_2 = tw_key2, twitter_top_2 = top_tw_2,
+                               # twitter_key_3 = tw_key3, twitter_top_3 = top_tw_3
                                )
 
 def get_top_news(which_day,num,keyword):
@@ -109,6 +110,9 @@ def get_top_news(which_day,num,keyword):
             if keyword in title:
                 choose.append(i)
         news = choose
+    news = pd.DataFrame.from_records(news)
+    news = news[['title','link','pubdate','source']]
+    news = json.loads(news.to_json(orient='records'))
     return key,news
             
 def get_portfolio_news(which_day,method,keyword):
@@ -132,6 +136,9 @@ def get_portfolio_news(which_day,method,keyword):
                 if keyword in title:
                     choose.append(i)
             news = choose
+        news = pd.DataFrame.from_records(news)
+        news = news[['title','link','pubdate','source']]
+        news = json.loads(news.to_json(orient='records'))
         return portfolio,news
     except:
         portfolio = ''
@@ -148,6 +155,7 @@ def get_top_twitter(which_day,num):
     
 @app.route("/log/create-entry", methods=["POST"])
 def create_entry():
+    time=dt.datetime.now().strftime('%Y%m%d  %H:%M:%S')
     req = request.get_json()
     print(req)
     with open(f'./schema/Info.json', 'r') as json_file:
@@ -161,7 +169,9 @@ def create_entry():
     data[user].update({int: {"date": "",
                              "pf": "",
                              "kw": "",
-                             "clc": {"url": req['url'], "title" : req['title'], "tab": req['tab']}}})
+                             "clc": {"url": req['url'], "title" : req['title'], "tab": req['tab'],
+                                     'click_time':time
+                                     }}})
     with open(f'./schema/Info.json', 'w') as json_file:
         json.dump(data, json_file)
         json_file.close()
