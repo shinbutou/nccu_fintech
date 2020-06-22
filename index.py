@@ -4,6 +4,7 @@ import pandas as pd
 import datetime as dt
 
 app = Flask(__name__)
+fullName = pd.read_json("./schema/InfoCodeToFullName.json").set_index('InfoCode')
 method_list = {'pph_1':'news_PortfolioList_AbovePositive5',
                'pph_2':'news_PortfolioList_BelowNegative5',
                'pph_3':'news_PortfolioList_WeekAbovePositive10',
@@ -35,10 +36,14 @@ def login():
         key2,top_news_2 = get_top_news(default_year, 2,'')
         key3,top_news_3 = get_top_news(default_year, 3,'')
         portfolio_list,portfolio_news = get_portfolio_news(default_year,default_method,'')
+        if portfolio_list !='':
+            ret = get_chart_data(default_year,default_method)
+        else :ret=''
         tw_key1,top_tw_1 = get_top_twitter(default_year,1)
         tw_key2,top_tw_2 = get_top_twitter(default_year,2)
         tw_key3,top_tw_3 = get_top_twitter(default_year,3)
         tw_key4,top_tw_4 = get_top_twitter(default_year,4)
+        tw1,tw2,tw3 = get_hot_twitter(default_year)
         return render_template("main.html",
                                date = default_year,
                                selected = selected,
@@ -48,10 +53,12 @@ def login():
                                key1 = key1, top_news_list_1 = top_news_1,
                                key2 = key2, top_news_list_2 = top_news_2,
                                key3 = key3, top_news_list_3 = top_news_3,
+                               ret=ret,
                                 twitter_key_1 = tw_key1, twitter_top_1 = top_tw_1,
                                 twitter_key_2 = tw_key2, twitter_top_2 = top_tw_2,
                                 twitter_key_3 = tw_key3, twitter_top_3 = top_tw_3,
-                                twitter_key_4 = tw_key4, twitter_top_4 = top_tw_4
+                                twitter_key_4 = tw_key4, twitter_top_4 = top_tw_4,
+                                twitter_pop_1 = tw1,twitter_pop_2 = tw2,twitter_pop_3 = tw3
                                )
     
         
@@ -81,10 +88,14 @@ def op():
         key2,top_news_2 = get_top_news(year, 2,keyword)
         key3,top_news_3 = get_top_news(year, 3,keyword)
         portfolio_list,portfolio_news = get_portfolio_news(year,portfolio,keyword)
+        if portfolio_list !='':
+            ret = get_chart_data(default_year,default_method)
+        else: ret=''
         tw_key1,top_tw_1 = get_top_twitter(year,1)
         tw_key2,top_tw_2 = get_top_twitter(year,2)
         tw_key3,top_tw_3 = get_top_twitter(year,3)
         tw_key4,top_tw_4 = get_top_twitter(year,4)
+        tw1,tw2,tw3 = get_hot_twitter(year)
         return render_template("main.html",
                                date = date,
                                selected = selected,
@@ -94,10 +105,12 @@ def op():
                                key1 = key1, top_news_list_1 = top_news_1,
                                key2 = key2, top_news_list_2 = top_news_2,
                                key3 = key3, top_news_list_3 = top_news_3,
+                               ret=ret,
                                 twitter_key_1 = tw_key1, twitter_top_1 = top_tw_1,
                                 twitter_key_2 = tw_key2, twitter_top_2 = top_tw_2,
                                 twitter_key_3 = tw_key3, twitter_top_3 = top_tw_3,
-                                twitter_key_4 = tw_key4, twitter_top_4 = top_tw_4
+                                twitter_key_4 = tw_key4, twitter_top_4 = top_tw_4,
+                                twitter_pop_1 = tw1,twitter_pop_2 = tw2,twitter_pop_3 = tw3
                                )
 
 def get_top_news(which_day,num,keyword):
@@ -148,7 +161,17 @@ def get_portfolio_news(which_day,method,keyword):
         portfolio = ''
         news = ''
         return portfolio,news
-    
+def get_chart_data(which_day,method):
+    which_day = pd.to_datetime(which_day).strftime('%Y%m%d')
+    method = method_list[method].replace('news_PortfolioList_','')
+    data = pd.read_json(f'./UIData/chart/PortfolioPerformance_{method}_{which_day}.json')
+    data['company'] = data['InfoCode'].apply(lambda x:fullName.loc[int(x)][0])
+    data.sort_values('Single',ascending=False)
+    data=data.rename(columns={'Single':'day','Nearest7DaysAnnualSingle':'week',
+                              'Nearest30DaysAnnualSingle':'month','Nearest365DaysAnnualSingle':'year'})
+    data = data[['company','day','week','month','year']]
+    data = json.loads(data.to_json(orient='records'))
+    return data
 def get_top_twitter(which_day,num):
     which_day = pd.to_datetime(which_day).strftime('%Y%m%d')
     with open(f'./UIData/twitter/{which_day}_{num}.json')as f:
@@ -156,7 +179,16 @@ def get_top_twitter(which_day,num):
         key = file[0]
         twitter = file[1:]
     return key,twitter
-    
+def get_hot_twitter(which_day):
+    which_day = pd.to_datetime(which_day).strftime('%Y%m%d')
+    with open(f'./UIData/twitter/FundyLongShort+{which_day}.json')as f:
+        file1 = json.load(f)
+    with open(f'./UIData/twitter/SmallCapLS+{which_day}.json')as f:
+        file2 = json.load(f)
+    with open(f'./UIData/twitter/ShortSightedCap+{which_day}.json')as f:
+        file3 = json.load(f)
+    return file1,file2,file3
+        
 @app.route("/log/create-entry", methods=["POST"])
 def create_entry():
     time=dt.datetime.now().strftime('%Y%m%d  %H:%M:%S')
