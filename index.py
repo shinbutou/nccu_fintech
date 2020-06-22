@@ -29,15 +29,16 @@ def login():
             json_file.close()
             
         default_year = '05/06/2020'
-        selected = {'pph_1':'selected','pph_2':'','pph_3':'','pph_4':'','pph_5':''}
+        selected = {'pph_1':'','pph_2':'selected','pph_3':'','pph_4':'','pph_5':''}
         default_method = 'pph_1'
         key1,top_news_1 = get_top_news(default_year, 1,'')
         key2,top_news_2 = get_top_news(default_year, 2,'')
         key3,top_news_3 = get_top_news(default_year, 3,'')
         portfolio_list,portfolio_news = get_portfolio_news(default_year,default_method,'')
-        # tw_key1,top_tw_1 = get_top_twitter(default_year,1)
-        # tw_key2,top_tw_2 = get_top_twitter(default_year,2)
-        # tw_key3,top_tw_3 = get_top_twitter(default_year,3)
+        tw_key1,top_tw_1 = get_top_twitter(default_year,1)
+        tw_key2,top_tw_2 = get_top_twitter(default_year,2)
+        tw_key3,top_tw_3 = get_top_twitter(default_year,3)
+        tw_key4,top_tw_4 = get_top_twitter(default_year,4)
         return render_template("main.html",
                                date = default_year,
                                selected = selected,
@@ -47,9 +48,10 @@ def login():
                                key1 = key1, top_news_list_1 = top_news_1,
                                key2 = key2, top_news_list_2 = top_news_2,
                                key3 = key3, top_news_list_3 = top_news_3,
-                               # twitter_key_1 = tw_key1, twitter_top_1 = top_tw_1,
-                               # twitter_key_2 = tw_key2, twitter_top_2 = top_tw_2,
-                               # twitter_key_3 = tw_key3, twitter_top_3 = top_tw_3
+                                twitter_key_1 = tw_key1, twitter_top_1 = top_tw_1,
+                                twitter_key_2 = tw_key2, twitter_top_2 = top_tw_2,
+                                twitter_key_3 = tw_key3, twitter_top_3 = top_tw_3,
+                                twitter_key_4 = tw_key4, twitter_top_4 = top_tw_4
                                )
     
         
@@ -79,9 +81,10 @@ def op():
         key2,top_news_2 = get_top_news(year, 2,keyword)
         key3,top_news_3 = get_top_news(year, 3,keyword)
         portfolio_list,portfolio_news = get_portfolio_news(year,portfolio,keyword)
-        # tw_key1,top_tw_1 = get_top_twitter(year,1)
-        # tw_key2,top_tw_2 = get_top_twitter(year,2)
-        # tw_key3,top_tw_3 = get_top_twitter(year,3)
+        tw_key1,top_tw_1 = get_top_twitter(year,1)
+        tw_key2,top_tw_2 = get_top_twitter(year,2)
+        tw_key3,top_tw_3 = get_top_twitter(year,3)
+        tw_key4,top_tw_4 = get_top_twitter(year,4)
         return render_template("main.html",
                                date = date,
                                selected = selected,
@@ -91,9 +94,10 @@ def op():
                                key1 = key1, top_news_list_1 = top_news_1,
                                key2 = key2, top_news_list_2 = top_news_2,
                                key3 = key3, top_news_list_3 = top_news_3,
-                               # twitter_key_1 = tw_key1, twitter_top_1 = top_tw_1,
-                               # twitter_key_2 = tw_key2, twitter_top_2 = top_tw_2,
-                               # twitter_key_3 = tw_key3, twitter_top_3 = top_tw_3
+                                twitter_key_1 = tw_key1, twitter_top_1 = top_tw_1,
+                                twitter_key_2 = tw_key2, twitter_top_2 = top_tw_2,
+                                twitter_key_3 = tw_key3, twitter_top_3 = top_tw_3,
+                                twitter_key_4 = tw_key4, twitter_top_4 = top_tw_4
                                )
 
 def get_top_news(which_day,num,keyword):
@@ -137,7 +141,7 @@ def get_portfolio_news(which_day,method,keyword):
                     choose.append(i)
             news = choose
         news = pd.DataFrame.from_records(news)
-        news = news[['title','link','pubdate','source']]
+        news = news[['title','link','pubdate','source','title_company']]
         news = json.loads(news.to_json(orient='records'))
         return portfolio,news
     except:
