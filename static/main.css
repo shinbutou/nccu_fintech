@@ -8,7 +8,7 @@ body{
     line-height:1.2;
     color:#212529;
     text-align:left;
-    background-color: lightgray;
+    background-color: #1565C0;
 }
 
 .vertical-center{
@@ -47,7 +47,7 @@ body{
     height: 5%;
     color: white;
     border-collapse: collapse;
-    background-color: lightslategray;
+    background-color: #1565C0;
 }
 
 .leftpane{
@@ -129,6 +129,16 @@ body{
 .twitter_panel{
     width: 24.6%;
     height: 100%;
+    overflow: auto;
+    position: relative;
+    float: left;
+    border: 1px solid;
+    margin: 1px;
+}
+
+.twitter_panel_1{
+    width: 100%;
+    height: 58%;
     overflow: auto;
     position: relative;
     float: left;
