@@ -122,13 +122,37 @@
             <div id="tabs">
                 <ul>
                     <li><a href="#tabs-1">Market Trends</a></li>
-                    <li><a href="#tabs-2">Twitter_1</a></li>
-                    <li><a href="#tabs-3">Twitter_2</a></li>
-                    <li><a href="#tabs-4">Twitter_3</a></li>
-                    <li><a href="#tabs-5">Twitter_4</a></li>
+                    <li><a href="#tabs-2">Twitter_Top</a></li>
+                    <li><a href="#tabs-3">Twitter_Famous_1</a></li>
+                    <li><a href="#tabs-4">Twitter_Famous_2</a></li>
+                    <li><a href="#tabs-5">Twitter_Famous_3</a></li>
                 </ul>
                 <div id="tabs-1"><div class="tabs_panel" name="tabs_panel">
 <!--   Willy todo -->
+                       <script src="{{ url_for('static', filename='echarts.min.js') }}"></script>
+                            <div id="main" style="width: 600px;height:200px;"></div>
+                            <script type="text/javascript">
+                            var myChart = echarts.init(document.getElementById('main'));
+                            var option = {
+                                title: {
+                                    text: '{{stock_name}}'
+                                },
+                                tooltip: {},
+                                legend: {
+                                    data:['return']
+                                },
+                                xAxis: {
+                                    data: ["7days","30days","1yr"]
+                                },
+                                yAxis: {},
+                                series: [{
+                                    name: 'return',
+                                    type: 'bar',
+                                    data: [1,2,3]
+                                }]
+                            };                    
+                            myChart.setOption(option);
+                        </script>
                 </div></div>
                 <div id="tabs-2"><div class="tabs_panel" name="tabs_panel">
                     <div class="twitter_panel" name="twitter_panel">
@@ -178,8 +202,8 @@
                     
                 </div></div>
                 <div id="tabs-3"><div class="tabs_panel" name="tabs_panel">
-                    <div class="twitter_panel" name="twitter_panel">
-                        人物一<br>
+                    <div class="twitter_panel_1" name="twitter_panel">
+                        FundyLongShort<br>
                         {% for post in twitter_pop_1 %}
                         <div style="font-size: 10pt; text-align: justify; color:#222222; text-decoration: none; margin: 1px; padding: 9px; background-color: #E0E0E0 ; cursor: pointer;">
                             {{ post['Text']}}
@@ -191,8 +215,8 @@
                     </div>
                 </div></div>
                 <div id="tabs-4"><div class="tabs_panel" name="tabs_panel">
-                    <div class="twitter_panel" name="twitter_panel">
-                        人物二<br>
+                    <div class="twitter_panel_1" name="twitter_panel">
+                        SmallCapLS<br>
                         {% for post in twitter_pop_2 %}
                         <div style="font-size: 10pt; text-align: justify; color:#222222; text-decoration: none; margin: 1px; padding: 9px; background-color: #E0E0E0 ; cursor: pointer;">
                             {{ post['Text']}}
@@ -204,8 +228,8 @@
                     </div>
                 </div></div>
                 <div id="tabs-5"><div class="tabs_panel" name="tabs_panel">
-                    <div class="twitter_panel" name="twitter_panel">
-                        人物三<br>
+                    <div class="twitter_panel_1" name="twitter_panel">
+                        ShortSightedCap<br>
                         {% for post in twitter_pop_3 %}
                         <div style="font-size: 10pt; text-align: justify; color:#222222; text-decoration: none; margin: 1px; padding: 9px; background-color: #E0E0E0 ; cursor: pointer;">
                             {{ post['Text']}}
