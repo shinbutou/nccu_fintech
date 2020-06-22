@@ -129,30 +129,6 @@
                 </ul>
                 <div id="tabs-1"><div class="tabs_panel" name="tabs_panel">
 <!--   Willy todo -->
-                       <script src="{{ url_for('static', filename='echarts.min.js') }}"></script>
-                            <div id="main" style="width: 600px;height:200px;"></div>
-                            <script type="text/javascript">
-                            var myChart = echarts.init(document.getElementById('main'));
-                            var option = {
-                                title: {
-                                    text: '{{stock_name}}'
-                                },
-                                tooltip: {},
-                                legend: {
-                                    data:['return']
-                                },
-                                xAxis: {
-                                    data: ["7days","30days","1yr"]
-                                },
-                                yAxis: {},
-                                series: [{
-                                    name: 'return',
-                                    type: 'bar',
-                                    data: [1,2,3]
-                                }]
-                            };                    
-                            myChart.setOption(option);
-                        </script>
                 </div></div>
                 <div id="tabs-2"><div class="tabs_panel" name="tabs_panel">
                     <div class="twitter_panel" name="twitter_panel">
