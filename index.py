@@ -170,11 +170,15 @@ def get_chart_data(which_day,method):
     method = method_list[method].replace('news_PortfolioList_','')
     data = pd.read_json(f'./UIData/chart/PortfolioPerformance_{method}_{which_day}.json')
     data['company'] = data['InfoCode'].apply(lambda x:fullName.loc[int(x)][0])
-    data.sort_values('Single',ascending=False)
+    data = data.sort_values('Single',ascending=False)
+    data['Single']= data['Single']*360
     data=data.rename(columns={'Single':'day','Nearest7DaysAnnualSingle':'week',
                               'Nearest30DaysAnnualSingle':'month','Nearest365DaysAnnualSingle':'year'})
     data = data[['company','day','week','month','year']]
     data = json.loads(data.to_json(orient='records'))
+    import pickle
+    with open('123','wb')as f:
+        pickle.dump(data,f)
     return data
 def get_top_twitter(which_day,num):
     which_day = pd.to_datetime(which_day).strftime('%Y%m%d')
