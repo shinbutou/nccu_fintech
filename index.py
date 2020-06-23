@@ -31,7 +31,7 @@ def login():
             
         default_year = '05/06/2020'
         selected = {'pph_1':'','pph_2':'selected','pph_3':'','pph_4':'','pph_5':''}
-        default_method = 'pph_1'
+        default_method = 'pph_2'
         key1,top_news_1 = get_top_news(default_year, 1,'')
         key2,top_news_2 = get_top_news(default_year, 2,'')
         key3,top_news_3 = get_top_news(default_year, 3,'')
@@ -89,7 +89,7 @@ def op():
         key3,top_news_3 = get_top_news(year, 3,keyword)
         portfolio_list,portfolio_news = get_portfolio_news(year,portfolio,keyword)
         if portfolio_list !='':
-            ret = get_chart_data(default_year,default_method)
+            ret = get_chart_data(year,portfolio)
         else: ret=''
         tw_key1,top_tw_1 = get_top_twitter(year,1)
         tw_key2,top_tw_2 = get_top_twitter(year,2)
@@ -154,6 +154,8 @@ def get_portfolio_news(which_day,method,keyword):
                     choose.append(i)
             news = choose
         news = pd.DataFrame.from_records(news)
+        news['title_company'] = news['title_company'].apply(lambda x:x[0])
+        news = news.sort_values(['title_company','pubdate','source'])
         news = news[['title','link','pubdate','source','title_company']]
         news = json.loads(news.to_json(orient='records'))
         return portfolio,news
