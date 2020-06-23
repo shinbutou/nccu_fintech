@@ -60,7 +60,7 @@
             Portfolio News<br>
             <div class="general_panel" name="general_panel">
                 {% for news in portfolio_news %}
-                <a style="text-decoration: none" href={{ news['link']}}>
+                <a style="text-decoration: none" href={{ news['link']}} onclick="submit_message({{ news }}, '1');" target="_blank">
                     <div style="font-size: 10pt; text-align: justify; color:#222222; text-decoration: none; margin: 1px; padding: 9px; background-color: #E0E0E0 ; cursor: pointer;">
                         {{ news['title']}}
                         
@@ -68,6 +68,7 @@
                 </a>
                 <div style="font-size: 8pt; text-align: justify; color:#222222">
                  &ensp;Pubdate &ensp;:&ensp;{{ news['pubdate']}}  <br/> &ensp; Source&ensp;:&ensp;{{ news['source']}}
+                 <br/> Company:&ensp;:&ensp;{{news['title_company']}}
                 </div>
                 {% endfor %}        
             </div>
@@ -178,15 +179,15 @@
                     
                 </div></div>
                 <div id="tabs-3"><div class="tabs_panel" name="tabs_panel">
+                    FundyLongShort<br>
                     <div class="twitter_panel_1" name="twitter_panel">
-                        FundyLongShort<br>
                         {% for post in twitter_pop_1 %}
-                        <div style="font-size: 10pt; text-align: justify; color:#222222; text-decoration: none; margin: 1px; padding: 9px; background-color: #E0E0E0 ; cursor: pointer;">
-                            {{ post['Text']}}
-                        </div>
-                        <div style="font-size: 8pt; text-align: justify; color:#222222">
-                         &ensp;Time &ensp;:&ensp;{{ post['Time']}}  <br/> &ensp; Name&ensp;:&ensp;{{ post['Name']}}
-                        </div>
+                            <div style="font-size: 10pt; text-align: justify; color:#222222; text-decoration: none; margin: 1px; padding: 9px; background-color: #E0E0E0 ; cursor: pointer;">
+                                {{ post['Text']}}
+                            </div>
+                            <div style="font-size: 8pt; text-align: justify; color:#222222">
+                             &ensp;Time &ensp;:&ensp;{{ post['Time']}}  <br/> &ensp; Name&ensp;:&ensp;{{ post['Name']}}
+                            </div>
                         {% endfor %}
                     </div>
                 </div></div>
