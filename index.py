@@ -119,6 +119,9 @@ def get_top_news(which_day,num,keyword):
         file = json.load(f)
         key = file[0]
         news = file[1:]
+    news = pd.DataFrame.from_records(news)
+    news = news[['title','link','pubdate','source']]
+    news = json.loads(news.to_json(orient='records'))
     if keyword != '':
         keyword = keyword.upper()
         choose = []
@@ -127,9 +130,7 @@ def get_top_news(which_day,num,keyword):
             if keyword in title:
                 choose.append(i)
         news = choose
-    news = pd.DataFrame.from_records(news)
-    news = news[['title','link','pubdate','source']]
-    news = json.loads(news.to_json(orient='records'))
+
     return key,news
             
 def get_portfolio_news(which_day,method,keyword):
@@ -141,6 +142,12 @@ def get_portfolio_news(which_day,method,keyword):
         if len(file)>1:
             portfolio = file[0]
             news = file[1:]
+            
+            news = pd.DataFrame.from_records(news)
+            news['title_company'] = news['title_company'].apply(lambda x:x[0])
+            news = news.sort_values(['title_company','pubdate','source'])
+            news = news[['title','link','pubdate','source','title_company']]
+            news = json.loads(news.to_json(orient='records'))
         #當該投組 沒有新聞時
         else :
             portfolio = file[0]
@@ -153,11 +160,6 @@ def get_portfolio_news(which_day,method,keyword):
                 if keyword in title:
                     choose.append(i)
             news = choose
-        news = pd.DataFrame.from_records(news)
-        news['title_company'] = news['title_company'].apply(lambda x:x[0])
-        news = news.sort_values(['title_company','pubdate','source'])
-        news = news[['title','link','pubdate','source','title_company']]
-        news = json.loads(news.to_json(orient='records'))
         return portfolio,news
     except:
         portfolio = ''
@@ -220,4 +222,5 @@ def create_entry():
     
 if __name__ == "__main__":
     app.run()
+
     
