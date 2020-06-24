@@ -32,11 +32,11 @@
                 Date <input type="text" id="datepicker" name="datepicker" value={{date}}></td>
                 Portfolio: 
                     <select id="portfolio" name="portfolio">
-                        <option value="pph_1" {{selected['pph_1']}}>day above positive 5</option>
-                        <option value="pph_2" {{selected['pph_2']}}>day below negative 5</option>
-                        <option value="pph_3" {{selected['pph_3']}}>week above positive 10</option>
-                        <option value="pph_4" {{selected['pph_4']}}>week below negative 10</option>
-                        <option value="pph_5" {{selected['pph_5']}}>month above positive 20</option>
+                        <option value="pph_1" {{selected['pph_1']}}>日報酬超過 5%</option>
+                        <option value="pph_2" {{selected['pph_2']}}>日報酬低於 5%</option>
+                        <option value="pph_3" {{selected['pph_3']}}>周報酬超過 10%</option>
+                        <option value="pph_4" {{selected['pph_4']}}>周報酬低於 10%</option>
+                        <option value="pph_5" {{selected['pph_5']}}>月報酬超過 20%</option>
                     </select>
                 <div class="ikeyword">Keyword: <input type="text" id="ikeyword" name="ikeyword" value={{keyword}}><input type="submit" id="keysubmit" name="keysubmit" value="search"></div>
             </form>
@@ -180,7 +180,7 @@
                             options: {
                                 title: {
                                     display: true,
-                                    text: 'Annual Return',
+                                    text: 'Annualized Return',
                                     fontSize: 38,
                                 },
                                 scales: {
@@ -256,8 +256,8 @@
                     </div>
                 </div></div>
                 <div id="tabs-4"><div class="tabs_panel" name="tabs_panel">
+                    SmallCapLS<br>
                     <div class="twitter_panel_1" name="twitter_panel">
-                        SmallCapLS<br>
                         {% for post in twitter_pop_2 %}
                         <div style="font-size: 10pt; text-align: justify; color:#222222; text-decoration: none; margin: 1px; padding: 9px; background-color: #E0E0E0 ; cursor: pointer;">
                             {{ post['Text']}}
@@ -269,8 +269,8 @@
                     </div>
                 </div></div>
                 <div id="tabs-5"><div class="tabs_panel" name="tabs_panel">
+                    ShortSightedCap<br>
                     <div class="twitter_panel_1" name="twitter_panel">
-                        ShortSightedCap<br>
                         {% for post in twitter_pop_3 %}
                         <div style="font-size: 10pt; text-align: justify; color:#222222; text-decoration: none; margin: 1px; padding: 9px; background-color: #E0E0E0 ; cursor: pointer;">
                             {{ post['Text']}}
