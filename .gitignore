@@ -1,3 +1,6 @@
 #flask environment and files
-flask/
-UIData/
+/UIData/news/
+/UIData/twitter/
+/UIData/chart/
+
+
