@@ -145,7 +145,7 @@ def get_portfolio_news(which_day,method,keyword):
             
             news = pd.DataFrame.from_records(news)
             news['title_company'] = news['title_company'].apply(lambda x:x[0])
-            news = news.sort_values(['title_company','pubdate','source'])
+            news = news.sort_values(['title_company','pubdate','source'],ascending=[True,False,True])
             news = news[['title','link','pubdate','source','title_company']]
             news = json.loads(news.to_json(orient='records'))
         #當該投組 沒有新聞時
@@ -170,16 +170,36 @@ def get_chart_data(which_day,method):
     method = method_list[method].replace('news_PortfolioList_','')
     data = pd.read_json(f'./UIData/chart/PortfolioPerformance_{method}_{which_day}.json')
     data['company'] = data['InfoCode'].apply(lambda x:fullName.loc[int(x)][0])
-    data = data.sort_values('Single',ascending=False)
-    data['Single']= data['Single']*360
+    data['Single']=data['Single']*360
     data=data.rename(columns={'Single':'day','Nearest7DaysAnnualSingle':'week',
                               'Nearest30DaysAnnualSingle':'month','Nearest365DaysAnnualSingle':'year'})
     data = data[['company','day','week','month','year']]
-    data = json.loads(data.to_json(orient='records'))
-    import pickle
-    with open('123','wb')as f:
-        pickle.dump(data,f)
+    if len(data)>20:
+        if method=='AbovePositive5':
+            data = data.sort_values('day',ascending=False).iloc[:20,:]
+        elif method=='BelowNegative5':
+            data = data.sort_values('day',ascending=True).iloc[:20,:]
+        elif method=='WeekAbovePositive10':
+            data = data.sort_values('week',ascending=False).iloc[:20,:]
+        elif method=='WeekBelowNegative10':
+            data = data.sort_values('week',ascending=True).iloc[:20,:]
+        elif method=='MonthAbovePositive20':
+            data = data.sort_values('month',ascending=False).iloc[:20,:]
+    else:
+        if method=='AbovePositive5':
+            data = data.sort_values('day',ascending=False)
+        elif method=='BelowNegative5':
+            data = data.sort_values('day',ascending=True)
+        elif method=='WeekAbovePositive10':
+            data = data.sort_values('week',ascending=False)
+        elif method=='WeekBelowNegative10':
+            data = data.sort_values('week',ascending=True)
+        elif method=='MonthAbovePositive20':
+            data = data.sort_values('month',ascending=False)
+    data=json.loads(data.to_json(orient='records'))
     return data
+
+
 def get_top_twitter(which_day,num):
     which_day = pd.to_datetime(which_day).strftime('%Y%m%d')
     with open(f'./UIData/twitter/{which_day}_{num}.json')as f:
