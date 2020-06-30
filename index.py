@@ -13,9 +13,9 @@ method_list = {'pph_1':'news_PortfolioList_AbovePositive5',
                }
 @app.route("/")
 def main():
-    return render_template('login.html')
+    return render_template('login_willy.html')
 
-@app.route("/login.html", methods=["POST", "GET"])
+@app.route("/login_willy.html", methods=["POST", "GET"])
 def login():
     if request.method == "POST":
         global user

@@ -17,8 +17,8 @@ def main():
 def login():
     if request.method == "POST":
         global user
-        user = request.values['usr']
-        pwd = request.values['pwd']
+        # user = request.values['usr']
+        # pwd = request.values['pwd']
         with open(f'./schema/Info.json', 'r') as json_file:
             data = json.load(json_file)
         if user not in data.keys():
